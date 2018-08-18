@@ -1,7 +1,8 @@
 <template>
   <!--变量不能作为key，用"[ ]"计算出变量的值，再作为key-->
-  <button class="g-button" :class="{[`icon-${iconPosition}`]: true}">
-    <g-icon v-if="icon" :name="icon" class="icon"></g-icon>
+  <button class="g-button" :class="{[`icon-${iconPosition}`]: true}" @click="$emit('click')">
+    <g-icon v-if="icon && !loading" :name="icon" class="icon"></g-icon>
+    <g-icon v-if="loading" class="loading icon" name="loading"></g-icon>
     <!--不能直接给slot加class-->
     <div class="content">
       <slot></slot>
@@ -45,6 +46,7 @@
       outline: none;
     };
     // 使用弹性盒子，才能使用 order
+		// 内部元素的对齐方式
     display: inline-flex; justify-content: center; align-items: center;
     > .content {
       order: 2;
@@ -63,6 +65,14 @@
         margin-left: .4em;
       }
     }
+		// button与外部元素的对齐方式
     vertical-align: middle;
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+		.loading {
+			animation: spin 1.5s infinite linear;
+		}
   }
 </style>
