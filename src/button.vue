@@ -1,9 +1,7 @@
 <template>
   <!--变量不能作为key，用"[ ]"计算出变量的值，再作为key-->
   <button class="g-button" :class="{[`icon-${iconPosition}`]: true}">
-    <svg v-if="icon" class="icon">
-      <use :xlink:href="`#i-${icon}`"></use>
-    </svg>
+    <g-icon v-if="icon" :name="icon" class="icon"></g-icon>
     <!--不能直接给slot加class-->
     <div class="content">
       <slot></slot>
